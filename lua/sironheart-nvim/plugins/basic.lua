@@ -6,7 +6,6 @@ return {
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  'gpanders/editorconfig.nvim',
 
   {
     'folke/which-key.nvim',
