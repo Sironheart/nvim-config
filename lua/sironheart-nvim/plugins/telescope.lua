@@ -11,10 +11,33 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
+      'nvim-telescope/telescope-ui-select.nvim',
     },
     config = function()
-      require('telescope').setup {
+      local telescope = require 'telescope'
+      telescope.setup {
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+          },
+          fzf = {
+            fuzzy = true,
+            case_mode = 'ignore_case',
+          }
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         defaults = {
+          file_ignore_patterns = {
+            "node_modules",
+            ".git",
+            ".idea",
+            ".fleet",
+            ".vscode"
+          },
           mappings = {
             i = {
               ['<C-u>'] = false,
@@ -24,8 +47,10 @@ return {
         },
       }
 
+      telescope.load_extension("ui-select")
+
       -- Enable telescope fzf native, if installed
-      pcall(require('telescope').load_extension, 'fzf')
+      pcall(telescope.load_extension, 'fzf')
 
       -- Telescope live_grep in git root
       -- Function to find the git root directory based on the current buffer's path
