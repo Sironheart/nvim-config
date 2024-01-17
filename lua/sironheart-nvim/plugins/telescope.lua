@@ -17,8 +17,8 @@ return {
       local telescope = require 'telescope'
       telescope.setup {
         extensions = {
-          ["ui-select"] = {
-            require("telescope.themes").get_dropdown({}),
+          ['ui-select'] = {
+            require('telescope.themes').get_dropdown({}),
           },
           fzf = {
             fuzzy = true,
@@ -32,11 +32,11 @@ return {
         },
         defaults = {
           file_ignore_patterns = {
-            "node_modules",
-            ".git",
-            ".idea",
-            ".fleet",
-            ".vscode"
+            'node_modules',
+            '^.git',
+            '^.idea',
+            '^.fleet',
+            '^.vscode',
           },
           mappings = {
             i = {
@@ -47,7 +47,7 @@ return {
         },
       }
 
-      telescope.load_extension("ui-select")
+      telescope.load_extension('ui-select')
 
       -- Enable telescope fzf native, if installed
       pcall(telescope.load_extension, 'fzf')
