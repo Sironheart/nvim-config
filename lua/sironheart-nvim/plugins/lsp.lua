@@ -7,6 +7,8 @@ return {
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
 
+      -- Install none-ls for diagnostics, code actions, and formatting
+      "nvimtools/none-ls.nvim",
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       opts = {} },
@@ -15,6 +17,7 @@ return {
       { 'folke/neodev.nvim',       opts = {} },
     },
     config = function()
+      local null_ls = require("null-ls")
       local on_attach = function(_, bufnr)
         -- NOTE: Remember that lua is a real programming language, and as such it is possible
         -- to define small helper and utility functions so you don't have to repeat yourself
@@ -63,7 +66,7 @@ return {
 
       -- mason-lspconfig requires that these setup functions are called in this order
       -- before setting up the servers.
-      require('mason').setup()
+      require('mason').setup({ ui = { border = "rounded" } })
       require('mason-lspconfig').setup()
 
       -- Enable the following language servers
@@ -75,10 +78,9 @@ return {
       --  If you want to override the default filetypes that your language server will attach to you can
       --  define the property 'filetypes' to the map in question.
       local servers = {
-        clangd = {},
-        -- pyright = {},
         html = { filetypes = { 'html', 'twig', 'hbs' } },
         cssls = {},
+        jsonls = {},
         gopls = {},
         java_language_server = {},
         kotlin_language_server = {},
@@ -86,21 +88,13 @@ return {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
-            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
           },
         },
         rnix = {},
         rust_analyzer = {},
         terraformls = {},
         tsserver = {},
-        yamlls = {
-          settings = {
-            yaml = {
-              keyOrdering = false,
-            },
-          },
-        },
+        yamlls = {},
       }
 
       -- Setup neovim lua configuration
@@ -127,6 +121,44 @@ return {
           }
         end,
       }
+
+      -- Congifure LSP linting, formatting, diagnostics, and code actions
+      local formatting = null_ls.builtins.formatting
+      local diagnostics = null_ls.builtins.diagnostics
+      local code_actions = null_ls.builtins.code_actions
+
+      null_ls.setup({
+        border = "rounded",
+        sources = {
+          -- formatting
+          formatting.prettier,
+          formatting.stylua,
+
+          -- diagnostics
+          diagnostics.eslint_d.with({
+            condition = function(utils)
+              return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+            end,
+          }),
+
+          -- code actions
+          code_actions.eslint_d.with({
+            condition = function(utils)
+              return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+            end,
+          }),
+        },
+      })
+
+      -- Configure borderd for LspInfo ui
+      require("lspconfig.ui.windows").default_options.border = "rounded"
+
+      -- Configure diagostics border
+      vim.diagnostic.config({
+        float = {
+          border = "rounded",
+        },
+      })
     end
   },
 }

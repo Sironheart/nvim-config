@@ -38,6 +38,11 @@ return {
     opts = {},
   },
 
+  {
+    'stevearc/dressing.nvim',
+    opts = {},
+  },
+
   'jghauser/mkdir.nvim',
 
   -- Games

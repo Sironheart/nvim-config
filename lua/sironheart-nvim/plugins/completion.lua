@@ -13,12 +13,19 @@ return {
 
       -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
+      "windwp/nvim-autopairs",
     },
     config = function()
+      local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       require('luasnip.loaders.from_vscode').lazy_load()
       luasnip.config.setup {}
+
+      require("nvim-autopairs").setup()
+
+      -- Integrate nvim-autopairs with cmp
+      cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
       cmp.setup {
         snippet = {
