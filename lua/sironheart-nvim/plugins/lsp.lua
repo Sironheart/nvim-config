@@ -131,7 +131,6 @@ return {
         border = "rounded",
         sources = {
           -- formatting
-          formatting.prettier,
           formatting.stylua,
 
           -- diagnostics
