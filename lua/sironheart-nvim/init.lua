@@ -1,2 +1,2 @@
-require 'sironheart-nvim.config'
-require 'sironheart-nvim.lazy'
+require("sironheart-nvim.config")
+require("sironheart-nvim.lazy")

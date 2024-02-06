@@ -1,1 +1,1 @@
-require 'sironheart-nvim'
+require("sironheart-nvim")
