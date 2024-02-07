@@ -1,0 +1,6 @@
+require("sironheart-nvim.nix-plugins.basic")
+require("sironheart-nvim.nix-plugins.completion")
+require("sironheart-nvim.nix-plugins.git")
+require("sironheart-nvim.nix-plugins.lsp")
+require("sironheart-nvim.nix-plugins.neo-tree")
+require("sironheart-nvim.nix-plugins.telescope")

@@ -7,12 +7,26 @@
 
   outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
+
+      flake = {
+        lib = import ./lib {inherit inputs;};
+      };
+
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+
       perSystem = { config, self', inputs', pkgs, system, ... }: {
-        packages.default = pkgs.vimUtils.buildVimPlugin {
-          name = "sironheart-nvim";
-          src = ./.;
-        };
+        packages = {
+	  default = pkgs.vimUtils.buildVimPlugin {
+            name = "sironheart-nvim";
+            # postInstall = ''
+            #   rm -rf $out/README.md
+            #   rm -rf $out/flake.lock
+            #   rm -rf $out/flake.nix
+            #   rm -rf $out/.editorconfig
+            # '';
+            src = ./.;
+          };
+	};
       };
     };
 }

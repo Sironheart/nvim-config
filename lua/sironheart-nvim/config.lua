@@ -82,8 +82,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	desc = "Run LSP formatting on a file on save",
 	callback = function()
-		if vim.fn.exists(":Format") > 0 then
-			vim.cmd.Format()
-		end
+		vim.lsp.buf.format()
 	end,
 })
