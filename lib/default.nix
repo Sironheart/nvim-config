@@ -4,7 +4,7 @@ let
   inherit (inputs.nixpkgs) legacyPackages;
 in
 rec {
-  mkVimPlugin = { system }:
+  buildSironheartNvimPlugin = { system }:
     let
       inherit (pkgs) vimUtils;
       inherit (vimUtils) buildVimPlugin;
@@ -22,11 +22,29 @@ rec {
       src = ../.;
     };
 
+  buildFlexOkiNvimPlugin = { system }:
+    let
+      inherit (pkgs) vimUtils;
+      inherit (vimUtils) buildVimPlugin;
+      pkgs = legacyPackages.${system};
+    in
+    buildVimPlugin
+      {
+        name = "flexoki-neovim";
+        postInstall = ''
+          rm -rf $out/screenshots
+          rm -rf $out/LICENSE
+          rm -rf $out/README.md
+        '';
+        src = inputs.flexoki;
+      };
+
   mkNeovimPlugins = { system }:
     let
       inherit (pkgs) vimPlugins;
       pkgs = legacyPackages.${system};
-      sironheart-nvim = mkVimPlugin { inherit system; };
+      sironheart-nvim = buildSironheartNvimPlugin { inherit system; };
+      flexoki = buildFlexOkiNvimPlugin { inherit system; };
     in
     [
       # integrations
@@ -60,6 +78,7 @@ rec {
       vimPlugins.nui-nvim
       vimPlugins.nvim-treesitter-context
       vimPlugins.trouble-nvim
+      vimPlugins.harpoon2
 
       # basic plugins
       vimPlugins.comment-nvim
@@ -78,6 +97,7 @@ rec {
 
       # configuration
       sironheart-nvim
+      flexoki
     ];
 
   mkExtraPackages = { system }:

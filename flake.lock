@@ -17,6 +17,22 @@
         "type": "indirect"
       }
     },
+    "flexoki": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1707339288,
+        "narHash": "sha256-D8FZXkeoyOzIHjvT/0ubMfLPk691s8xDcAiCagEtMro=",
+        "owner": "kepano",
+        "repo": "flexoki-neovim",
+        "rev": "975654bce67514114db89373539621cff42befb5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kepano",
+        "repo": "flexoki-neovim",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1707092692,
@@ -54,6 +70,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
+        "flexoki": "flexoki",
         "nixpkgs": "nixpkgs"
       }
     }

@@ -3,20 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flexoki.url = "github:kepano/flexoki-neovim";
+    flexoki.flake = false;
   };
 
-  outputs = inputs@{ flake-parts, ... }:
+  outputs = inputs@{ flake-parts, flexoki, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
 
       flake = {
-        lib = import ./lib {inherit inputs;};
+        lib = import ./lib { inherit inputs; };
       };
 
       systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
       perSystem = { config, self', inputs', pkgs, system, ... }: {
         packages = {
-	  default = pkgs.vimUtils.buildVimPlugin {
+          default = pkgs.vimUtils.buildVimPlugin {
             name = "sironheart-nvim";
             # postInstall = ''
             #   rm -rf $out/README.md
@@ -26,7 +28,7 @@
             # '';
             src = ./.;
           };
-	};
+        };
       };
     };
 }
