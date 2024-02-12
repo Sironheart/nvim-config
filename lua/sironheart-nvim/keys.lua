@@ -1,6 +1,6 @@
 local function init()
 	-- Neotree
-	vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>")
+	vim.keymap.set("n", "<C-n>", ":Oil<CR>")
 
 	-- telescope
 	vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
@@ -13,17 +13,32 @@ local function init()
 		}))
 	end, { desc = "[/] Fuzzily search in current buffer" })
 
-	vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, { desc = "[F]ind [F]iles" })
-	vim.keymap.set("n", "<leader>fw", require("telescope.builtin").grep_string, { desc = "[F]ind current [W]ord" })
-	vim.keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, { desc = "[F]ind by [G]rep" })
-	vim.keymap.set("n", "<leader>fd", require("telescope.builtin").diagnostics, { desc = "[F]ind [D]iagnostics" })
-	vim.keymap.set("n", "<leader>fr", require("telescope.builtin").resume, { desc = "[F]ind [R]esume" })
+	vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[F]ind [F]iles" })
+	vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[F]ind current [W]ord" })
+	vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[F]ind by [G]rep" })
+	vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[F]ind [D]iagnostics" })
+	vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[F]ind [R]esume" })
 
 	-- lsp
 	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+
+	-- [[ Basic Keymaps ]]
+
+	-- Keymaps for better default experience
+	-- See `:help vim.keymap.set()`
+	vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+
+	-- Remap for dealing with word wrap
+	vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+	vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+	vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
+	vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")
+	vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
+	vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
 end
 
 local function lsp_bindings(buffer, client)
@@ -48,7 +63,7 @@ local function lsp_bindings(buffer, client)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-	vim.keymap.set("n", "<leader>f", function()
+	vim.keymap.set("n", "<leader>s", function()
 		vim.lsp.buf.format({ async = true })
 	end, opts)
 
@@ -77,20 +92,20 @@ local function gitsigns(bufnr)
 	map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
 end
 
-local function harpoon(harpoon, toggle_telescope)
+local function harpoon(innerHarpoon, toggle_telescope)
 	vim.keymap.set("n", "<leader>ha", function()
-		harpoon:list():append()
+		innerHarpoon:list():append()
 	end)
 	vim.keymap.set("n", "<leader>hl", function()
-		toggle_telescope(harpoon:list())
+		toggle_telescope(innerHarpoon:list())
 	end, { desc = "Open harpoon window" })
 
 	-- Toggle previous & next buffers stored within Harpoon list
 	vim.keymap.set("n", "<C-S-P>", function()
-		harpoon:list():prev()
+		innerHarpoon:list():prev()
 	end)
 	vim.keymap.set("n", "<C-S-N>", function()
-		harpoon:list():next()
+		innerHarpoon:list():next()
 	end)
 end
 

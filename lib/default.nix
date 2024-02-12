@@ -50,9 +50,7 @@ rec {
       # integrations
       vimPlugins.nvim-lspconfig
       vimPlugins.nvim-treesitter.withAllGrammars
-      vimPlugins.rust-tools-nvim
       vimPlugins.vim-just
-      vimPlugins.none-ls-nvim
 
       # telescope
       vimPlugins.plenary-nvim
@@ -69,12 +67,12 @@ rec {
       vimPlugins.nvim-autopairs
       vimPlugins.nvim-ts-autotag
       vimPlugins.lspkind-nvim
-      vimPlugins.none-ls-nvim
+      vimPlugins.conform-nvim
 
       # extras
       vimPlugins.gitsigns-nvim
       vimPlugins.lualine-nvim
-      vimPlugins.neo-tree-nvim
+      vimPlugins.oil-nvim
       vimPlugins.nui-nvim
       vimPlugins.nvim-treesitter-context
       vimPlugins.trouble-nvim
@@ -82,7 +80,6 @@ rec {
 
       # basic plugins
       vimPlugins.comment-nvim
-      vimPlugins.dressing-nvim
       vimPlugins.gitsigns-nvim
       vimPlugins.indent-blankline-nvim
       vimPlugins.mkdir-nvim
@@ -122,9 +119,9 @@ rec {
       pkgs.java-language-server
       pkgs.jsonnet-language-server
       pkgs.kotlin-language-server
+      pkgs.ktlint
       pkgs.lua-language-server
       pkgs.nil
-      pkgs.rust-analyzer
       pkgs.terraform-ls
 
       # formatters
@@ -133,7 +130,6 @@ rec {
       pkgs.nixpkgs-fmt
       pkgs.gofumpt
       pkgs.golines
-      pkgs.rustfmt
       pkgs.stylua
       pkgs.terraform
     ];

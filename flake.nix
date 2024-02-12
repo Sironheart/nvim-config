@@ -20,12 +20,12 @@
         packages = {
           default = pkgs.vimUtils.buildVimPlugin {
             name = "sironheart-nvim";
-            # postInstall = ''
-            #   rm -rf $out/README.md
-            #   rm -rf $out/flake.lock
-            #   rm -rf $out/flake.nix
-            #   rm -rf $out/.editorconfig
-            # '';
+            postInstall = ''
+              rm -rf $out/README.md
+              rm -rf $out/flake.lock
+              rm -rf $out/flake.nix
+              rm -rf $out/.editorconfig
+            '';
             src = ./.;
           };
         };

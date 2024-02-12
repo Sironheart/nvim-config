@@ -1,6 +1,3 @@
--- UI changes
-require("dressing").setup({})
-
 -- indent blank lines
 require("ibl").setup({
 	scope = {

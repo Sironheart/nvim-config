@@ -1,51 +1,13 @@
 require("neodev").setup({})
 
-local null_ls = require("null-ls")
 local lspconfig = require("lspconfig")
-local rust_tools = require("rust-tools")
 local treesitter = require("nvim-treesitter.configs")
 local treesitter_context = require("treesitter-context")
-
-local function autocmd(args)
-	local event = args[1]
-	local group = args[2]
-	local callback = args[3]
-
-	vim.api.nvim_create_autocmd(event, {
-		group = group,
-		buffer = args[4],
-		callback = function()
-			callback()
-		end,
-		once = args.once,
-	})
-end
 
 local function on_attach(client, buffer)
 	require("sironheart-nvim.keys").lsp_bindings(buffer, client)
 end
 
-rust_tools.setup({
-	server = {
-		settings = {
-			["rust-analyzer"] = {
-				cargo = {
-					buildScripts = {
-						enable = true,
-					},
-				},
-				diagnostics = {
-					enable = false,
-				},
-				files = {
-					excludeDirs = { ".direnv", ".git" },
-					watcherExclude = { ".direnv", ".git" },
-				},
-			},
-		},
-		on_attach = on_attach,
-	},
-})
 local language_servers = {
 	html = { filetypes = { "html", "twig", "hbs" } },
 	cssls = {},
@@ -154,30 +116,19 @@ treesitter.setup({
 treesitter_context.setup()
 
 -- Configure LSP linting, formatting, diagnostics, and code actions
-local formatting = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
-
-null_ls.setup({
-	border = "rounded",
-	sources = {
-		-- formatting
-		formatting.prettierd,
-		formatting.stylua,
-
-		-- diagnostics
-		diagnostics.eslint_d.with({
-			condition = function(utils)
-				return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
-			end,
-		}),
-
-		-- code actions
-		code_actions.eslint_d.with({
-			condition = function(utils)
-				return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
-			end,
-		}),
+require("conform").setup({
+	formatters_by_ft = {
+		lua = { "stylua" },
+		javascript = { { "prettierd", "prettier" } },
+		go = { "gofmt" },
+		nix = { "nixpkgs_fmt" },
+		just = { "just" },
+		kotlin = { "ktlint" },
+		terraform = { "terraform_fmt" },
+	},
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true,
 	},
 })
 
