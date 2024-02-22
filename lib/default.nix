@@ -50,6 +50,7 @@ rec {
       # integrations
       vimPlugins.nvim-lspconfig
       vimPlugins.nvim-treesitter.withAllGrammars
+      vimPlugins.rustaceanvim
       vimPlugins.vim-just
 
       # telescope
@@ -122,6 +123,7 @@ rec {
       pkgs.ktlint
       pkgs.lua-language-server
       pkgs.nil
+      pkgs.rust-analyzer
       pkgs.terraform-ls
 
       # formatters
@@ -131,6 +133,7 @@ rec {
       pkgs.gofumpt
       pkgs.golines
       pkgs.stylua
+      pkgs.rustfmt
       pkgs.terraform
     ];
 
