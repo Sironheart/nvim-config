@@ -9,10 +9,11 @@ local function on_attach(client, buffer)
 end
 
 local language_servers = {
-	html = { filetypes = { "html", "twig", "hbs" } },
 	cssls = {},
-	jsonls = {},
+	elixirls = {},
 	gopls = {},
+	html = { filetypes = { "html", "twig", "hbs" } },
+	jsonls = {},
 	java_language_server = {},
 	kotlin_language_server = {},
 	lua_ls = {

@@ -56,6 +56,7 @@ rec {
       # telescope
       vimPlugins.plenary-nvim
       vimPlugins.telescope-nvim
+      vimPlugins.telescope-ui-select-nvim
 
       # nvim cmp
       vimPlugins.nvim-cmp
@@ -65,19 +66,19 @@ rec {
       vimPlugins.cmp-buffer
       vimPlugins.cmp-path
       vimPlugins.friendly-snippets
-      vimPlugins.nvim-autopairs
       vimPlugins.nvim-ts-autotag
       vimPlugins.lspkind-nvim
       vimPlugins.conform-nvim
 
       # extras
       vimPlugins.gitsigns-nvim
-      vimPlugins.lualine-nvim
       vimPlugins.oil-nvim
       vimPlugins.nui-nvim
       vimPlugins.nvim-treesitter-context
       vimPlugins.trouble-nvim
       vimPlugins.harpoon2
+      vimPlugins.auto-session
+      vimPlugins.mini-nvim
 
       # basic plugins
       vimPlugins.comment-nvim
@@ -87,8 +88,6 @@ rec {
       vimPlugins.nvim-colorizer-lua
       vimPlugins.nvim-web-devicons
       vimPlugins.rainbow-delimiters-nvim
-      vimPlugins.vim-fugitive
-      vimPlugins.vim-rhubarb
       vimPlugins.vim-sleuth
       vimPlugins.which-key-nvim
       vimPlugins.neodev-nvim
@@ -116,6 +115,7 @@ rec {
       nodePackages."yaml-language-server"
 
       pkgs.cuelsp
+      pkgs.elixir-ls
       pkgs.gopls
       pkgs.java-language-server
       pkgs.jsonnet-language-server

@@ -27,6 +27,12 @@ local function init()
 
 	-- [[ Basic Keymaps ]]
 
+	-- TIP: Disable arrow keys in normal mode
+	vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+	vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+	vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+	vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
+
 	-- Keymaps for better default experience
 	-- See `:help vim.keymap.set()`
 	vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -35,10 +41,8 @@ local function init()
 	vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 	vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-	vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")
-	vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")
-	vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv")
-	vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv")
+	-- Auto-Session Keymaps
+	vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, { noremap = true })
 end
 
 local function lsp_bindings(buffer, client)

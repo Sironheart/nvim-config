@@ -34,9 +34,9 @@ telescope.setup({
 	},
 	hidden = true,
 	extensions = {
-		-- ["ui-select"] = {
-		-- 	require("telescope.themes").get_dropdown({}),
-		-- },
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown({}),
+		},
 		fzf = {
 			fuzzy = true,
 			case_mode = "ignore_case",
@@ -50,3 +50,4 @@ telescope.setup({
 })
 
 pcall(telescope.load_extension, "fzf")
+pcall(telescope.load_extension, "ui-select")
