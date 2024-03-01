@@ -42,7 +42,7 @@ telescope.setup({
 			case_mode = "ignore_case",
 		},
 	},
-	pickets = {
+	pickers = {
 		find_files = {
 			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "--trim" },
 		},

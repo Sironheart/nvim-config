@@ -41,6 +41,7 @@ local language_servers = {
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
+	zls = {},
 }
 
 -- Initialize servers
@@ -120,7 +121,7 @@ treesitter_context.setup()
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "prettier" },
+		javascript = { "biome" },
 		go = { "gofmt" },
 		nix = { "nixpkgs_fmt" },
 		just = { "just" },

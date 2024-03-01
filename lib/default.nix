@@ -125,9 +125,10 @@ rec {
       pkgs.nil
       pkgs.rust-analyzer
       pkgs.terraform-ls
+      pkgs.zls
 
       # formatters
-      nodePackages.prettier
+      pkgs.biome
       pkgs.eslint_d
       pkgs.nixpkgs-fmt
       pkgs.gofumpt
