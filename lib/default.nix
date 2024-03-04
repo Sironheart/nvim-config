@@ -22,27 +22,9 @@ rec {
       src = ../.;
     };
 
-  buildFlexOkiNvimPlugin = { system }:
-    let
-      inherit (pkgs) vimUtils;
-      inherit (vimUtils) buildVimPlugin;
-      pkgs = legacyPackages.${system};
-    in
-    buildVimPlugin
-      {
-        name = "flexoki-neovim";
-        postInstall = ''
-          rm -rf $out/screenshots
-          rm -rf $out/LICENSE
-          rm -rf $out/README.md
-        '';
-        src = inputs.flexoki;
-      };
-
   mkNeovimPlugins = { system }:
     let
       inherit (pkgs) vimPlugins;
-      flexoki = buildFlexOkiNvimPlugin { inherit system; };
       pkgs = legacyPackages.${system};
       sironheart-nvim = buildSironheartNvimPlugin { inherit system; };
     in
@@ -74,6 +56,7 @@ rec {
 
       # extras
       vimPlugins.auto-session
+      vimPlugins.comment-nvim
       vimPlugins.gitsigns-nvim
       vimPlugins.harpoon2
       vimPlugins.mini-nvim
@@ -83,10 +66,8 @@ rec {
       vimPlugins.trouble-nvim
 
       # basic plugins
-      vimPlugins.comment-nvim
       vimPlugins.fidget-nvim
       vimPlugins.gitsigns-nvim
-      vimPlugins.indent-blankline-nvim
       vimPlugins.mkdir-nvim
       vimPlugins.neodev-nvim
       vimPlugins.nvim-colorizer-lua
@@ -96,7 +77,7 @@ rec {
       vimPlugins.which-key-nvim
 
       # configuration
-      flexoki
+      vimPlugins.oxocarbon-nvim
       sironheart-nvim
     ];
 
@@ -161,8 +142,8 @@ rec {
       };
       extraMakeWrapperArgs = ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
       withNodeJs = true;
-      withPython3 = true;
-      withRuby = true;
+      withPython3 = false;
+      withRuby = false;
     };
 
   mkHomeManager = { system }:
@@ -173,11 +154,13 @@ rec {
     in
     {
       inherit extraConfig extraPackages plugins;
+
       enable = true;
       viAlias = true;
       vimAlias = true;
+
       withNodeJs = true;
-      withPython3 = true;
-      withRuby = true;
+      withPython3 = false;
+      withRuby = false;
     };
 }

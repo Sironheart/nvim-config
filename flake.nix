@@ -3,11 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flexoki.url = "github:kepano/flexoki-neovim";
-    flexoki.flake = false;
   };
 
-  outputs = inputs@{ flake-parts, flexoki, ... }:
+  outputs = inputs@{ flake-parts, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
 
       flake = {

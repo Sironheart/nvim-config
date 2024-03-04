@@ -6,17 +6,26 @@ local treesitter_context = require("treesitter-context")
 
 require("fidget").setup({})
 
-local function on_attach(client, buffer)
-	require("sironheart-nvim.keys").lsp_bindings(buffer, client)
-end
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+	callback = require("sironheart-nvim.keys").lsp_bindings,
+})
+
+-- LSP servers and clients are able to communicate to each other what features they support.
+--  By default, Neovim doesn't support everything that is in the LSP Specification.
+--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
+--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 local language_servers = {
 	cssls = {},
 	elixirls = {},
+	gleam = {},
 	gopls = {},
-	html = { filetypes = { "html", "twig", "hbs" } },
-	jsonls = {},
+	html = { filetypes = { "html" } },
 	java_language_server = {},
+	jsonls = {},
 	kotlin_language_server = {},
 	lua_ls = {
 		Lua = {
@@ -30,13 +39,6 @@ local language_servers = {
 				formatting = {
 					command = { "nixpkgs-fmt" },
 				},
-				nix = {
-					maxMemoryMB = 2560,
-					flake = {
-						autoArchive = true,
-						autoEvalInputs = true,
-					},
-				},
 			},
 		},
 	},
@@ -48,7 +50,7 @@ local language_servers = {
 
 -- Initialize servers
 for server, server_config in pairs(language_servers) do
-	local config = { on_attach = on_attach }
+	local config = {}
 
 	if server_config then
 		for k, v in pairs(server_config) do
@@ -62,59 +64,6 @@ end
 treesitter.setup({
 	highlight = { enable = true },
 	indent = { enable = true },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<c-space>",
-			node_incremental = "<c-space>",
-			scope_incremental = "<c-s>",
-			node_decremental = "<M-space>",
-		},
-	},
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]]"] = "@class.outer",
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[["] = "@class.outer",
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
-			},
-		},
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>a"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>A"] = "@parameter.inner",
-			},
-		},
-	},
 })
 
 treesitter_context.setup()
