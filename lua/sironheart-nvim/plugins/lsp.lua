@@ -4,6 +4,8 @@ local lspconfig = require("lspconfig")
 local treesitter = require("nvim-treesitter.configs")
 local treesitter_context = require("treesitter-context")
 
+require("fidget").setup({})
+
 local function on_attach(client, buffer)
 	require("sironheart-nvim.keys").lsp_bindings(buffer, client)
 end

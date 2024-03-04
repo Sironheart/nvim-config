@@ -42,9 +42,9 @@ rec {
   mkNeovimPlugins = { system }:
     let
       inherit (pkgs) vimPlugins;
+      flexoki = buildFlexOkiNvimPlugin { inherit system; };
       pkgs = legacyPackages.${system};
       sironheart-nvim = buildSironheartNvimPlugin { inherit system; };
-      flexoki = buildFlexOkiNvimPlugin { inherit system; };
     in
     [
       # integrations
@@ -59,42 +59,45 @@ rec {
       vimPlugins.telescope-ui-select-nvim
 
       # nvim cmp
-      vimPlugins.nvim-cmp
-      vimPlugins.luasnip
-      vimPlugins.cmp_luasnip
-      vimPlugins.cmp-nvim-lsp
       vimPlugins.cmp-buffer
+      vimPlugins.cmp-nvim-lsp
       vimPlugins.cmp-path
-      vimPlugins.friendly-snippets
-      vimPlugins.nvim-ts-autotag
-      vimPlugins.lspkind-nvim
+      vimPlugins.cmp_luasnip
       vimPlugins.conform-nvim
+      vimPlugins.copilot-cmp
+      vimPlugins.copilot-lua
+      vimPlugins.friendly-snippets
+      vimPlugins.lspkind-nvim
+      vimPlugins.luasnip
+      vimPlugins.nvim-cmp
+      vimPlugins.nvim-ts-autotag
 
       # extras
+      vimPlugins.auto-session
       vimPlugins.gitsigns-nvim
-      vimPlugins.oil-nvim
+      vimPlugins.harpoon2
+      vimPlugins.mini-nvim
       vimPlugins.nui-nvim
       vimPlugins.nvim-treesitter-context
+      vimPlugins.oil-nvim
       vimPlugins.trouble-nvim
-      vimPlugins.harpoon2
-      vimPlugins.auto-session
-      vimPlugins.mini-nvim
 
       # basic plugins
       vimPlugins.comment-nvim
+      vimPlugins.fidget-nvim
       vimPlugins.gitsigns-nvim
       vimPlugins.indent-blankline-nvim
       vimPlugins.mkdir-nvim
+      vimPlugins.neodev-nvim
       vimPlugins.nvim-colorizer-lua
       vimPlugins.nvim-web-devicons
       vimPlugins.rainbow-delimiters-nvim
       vimPlugins.vim-sleuth
       vimPlugins.which-key-nvim
-      vimPlugins.neodev-nvim
 
       # configuration
-      sironheart-nvim
       flexoki
+      sironheart-nvim
     ];
 
   mkExtraPackages = { system }:
@@ -130,11 +133,11 @@ rec {
       # formatters
       pkgs.biome
       pkgs.eslint_d
-      pkgs.nixpkgs-fmt
       pkgs.gofumpt
       pkgs.golines
-      pkgs.stylua
+      pkgs.nixpkgs-fmt
       pkgs.rustfmt
+      pkgs.stylua
       pkgs.terraform
     ];
 
