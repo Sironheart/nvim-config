@@ -1,5 +1,4 @@
-{ inputs }:
-
+{ inputs, ... }:
 let
   inherit (inputs.nixpkgs) legacyPackages;
 in
@@ -22,81 +21,63 @@ rec {
       src = ../.;
     };
 
-  buildFlexOkiNvimPlugin = { system }:
-    let
-      inherit (pkgs) vimUtils;
-      inherit (vimUtils) buildVimPlugin;
-      pkgs = legacyPackages.${system};
-    in
-    buildVimPlugin
-      {
-        name = "flexoki-neovim";
-        postInstall = ''
-          rm -rf $out/screenshots
-          rm -rf $out/LICENSE
-          rm -rf $out/README.md
-        '';
-        src = inputs.flexoki;
-      };
-
   mkNeovimPlugins = { system }:
     let
       inherit (pkgs) vimPlugins;
-      flexoki = buildFlexOkiNvimPlugin { inherit system; };
       pkgs = legacyPackages.${system};
       sironheart-nvim = buildSironheartNvimPlugin { inherit system; };
+      nightly = import ./plugins.nix;
     in
     [
       # integrations
-      vimPlugins.nvim-lspconfig
+      nightly.nvim-lspconfig
       vimPlugins.nvim-treesitter.withAllGrammars
-      vimPlugins.rustaceanvim
+      nightly.rustaceanvim
       vimPlugins.vim-just
 
       # telescope
-      vimPlugins.plenary-nvim
-      vimPlugins.telescope-nvim
-      vimPlugins.telescope-ui-select-nvim
+      nightly.plenary-nvim
+      nightly.telescope-nvim
+      nightly.telescope-ui-select-nvim
 
       # nvim cmp
-      vimPlugins.cmp-buffer
-      vimPlugins.cmp-nvim-lsp
-      vimPlugins.cmp-path
-      vimPlugins.cmp_luasnip
-      vimPlugins.conform-nvim
-      vimPlugins.copilot-cmp
-      vimPlugins.copilot-lua
-      vimPlugins.friendly-snippets
-      vimPlugins.lspkind-nvim
-      vimPlugins.luasnip
-      vimPlugins.nvim-cmp
-      vimPlugins.nvim-ts-autotag
+      nightly.cmp-buffer
+      nightly.cmp-nvim-lsp
+      nightly.cmp-path
+      nightly.cmp_luasnip
+      nightly.conform-nvim
+      nightly.copilot-cmp
+      nightly.copilot-lua
+      nightly.friendly-snippets
+      nightly.lspkind-nvim
+      nightly.luasnip
+      nightly.nvim-cmp
+      nightly.nvim-ts-autotag
 
       # extras
-      vimPlugins.auto-session
-      vimPlugins.gitsigns-nvim
-      vimPlugins.harpoon2
-      vimPlugins.mini-nvim
-      vimPlugins.nui-nvim
-      vimPlugins.nvim-treesitter-context
-      vimPlugins.oil-nvim
-      vimPlugins.trouble-nvim
+      nightly.auto-session
+      nightly.harpoon2
+      nightly.mini-nvim
+      nightly.nui-nvim
+      nightly.nvim-treesitter-context
+      nightly.oil-nvim
+      nightly.trouble-nvim
 
       # basic plugins
-      vimPlugins.comment-nvim
-      vimPlugins.fidget-nvim
-      vimPlugins.gitsigns-nvim
-      vimPlugins.indent-blankline-nvim
-      vimPlugins.mkdir-nvim
-      vimPlugins.neodev-nvim
-      vimPlugins.nvim-colorizer-lua
-      vimPlugins.nvim-web-devicons
-      vimPlugins.rainbow-delimiters-nvim
-      vimPlugins.vim-sleuth
-      vimPlugins.which-key-nvim
+      nightly.comment-nvim
+      nightly.fidget-nvim
+      nightly.gitsigns-nvim
+      nightly.indent-blankline-nvim
+      nightly.mkdir-nvim
+      nightly.neodev-nvim
+      nightly.nvim-colorizer-lua
+      nightly.nvim-web-devicons
+      nightly.rainbow-delimiters-nvim
+      nightly.vim-sleuth
+      nightly.which-key-nvim
+      nightly.flexoki
 
       # configuration
-      flexoki
       sironheart-nvim
     ];
 
