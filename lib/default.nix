@@ -106,7 +106,6 @@ rec {
       pkgs.kotlin-language-server
       pkgs.ktlint
       pkgs.lua-language-server
-      pkgs.nil
       pkgs.rust-analyzer
       pkgs.terraform-ls
       pkgs.zls

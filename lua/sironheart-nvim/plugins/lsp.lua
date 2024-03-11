@@ -33,15 +33,6 @@ local language_servers = {
 			telemetry = { enable = false },
 		},
 	},
-	nil_ls = {
-		settings = {
-			["nil"] = {
-				formatting = {
-					command = { "nixpkgs-fmt" },
-				},
-			},
-		},
-	},
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
@@ -71,13 +62,16 @@ treesitter_context.setup()
 -- Configure LSP linting, formatting, diagnostics, and code actions
 require("conform").setup({
 	formatters_by_ft = {
-		lua = { "stylua" },
-		javascript = { "biome" },
-		go = { "gofmt" },
-		nix = { "nixpkgs_fmt" },
+		cue = { "cuefmt" },
+		gleam = { "gleam" },
+		go = { "goimports", "gofmt" },
+		javascript = { "biome", "prettierd" },
 		just = { "just" },
 		kotlin = { "ktlint" },
+		lua = { "stylua" },
+		nix = { "nixfmt" },
 		terraform = { "terraform_fmt" },
+		zig = { "zigfmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
