@@ -25,6 +25,7 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 --[[ Editor ]]
 vim.api.nvim_set_hl(0, "Normal", { bg = oxocarbon.none })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = oxocarbon.none })
+vim.api.nvim_set_hl(0, "CursorLine", { fg = oxocarbon.none, bg = oxocarbon.base01 })
 
 --[[ Telescope ]]
 vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = oxocarbon.base03, bg = oxocarbon.none })

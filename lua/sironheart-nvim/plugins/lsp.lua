@@ -33,6 +33,15 @@ local language_servers = {
 			telemetry = { enable = false },
 		},
 	},
+	nil_ls = {
+		settings = {
+			["nil"] = {
+				formatting = {
+					command = { "alejandra" },
+				},
+			},
+		},
+	},
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
