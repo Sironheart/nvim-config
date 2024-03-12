@@ -6,6 +6,7 @@ require("copilot").setup({
 	suggestion = { enabled = false },
 	panel = { enabled = false },
 })
+
 require("copilot_cmp").setup()
 require("luasnip.loaders.from_vscode").lazy_load()
 lspkind.init({
@@ -20,9 +21,10 @@ cmp.setup({
 		ghost_text = true,
 	},
 	formatting = {
+		fields = { "menu", "abbr", "kind" },
 		expandable_indicator = true,
 		format = lspkind.cmp_format({
-			mode = "symbol",
+			mode = "symbol_text",
 			maxwidth = 100,
 			show_labelDetails = true,
 		}),
@@ -40,33 +42,24 @@ cmp.setup({
 		completeopt = "menu,menuone,noinsert",
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-j>"] = cmp.mapping.select_next_item(),
-		["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if luasnip.locally_jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-u>"] = cmp.mapping.scroll_docs(4),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete({}),
 		["<C-c>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = nil,
+		["<Down>"] = nil,
+		["<Up>"] = nil,
+		["<Tab>"] = nil,
+		["<S-Tab>"] = nil,
 	}),
 	sources = {
-		{ name = "copilot", group_index = 2 },
-		{ name = "nvim_lsp", group_index = 2 },
-		{ name = "luasnip", group_index = 2 },
-		{ name = "path", max_item_count = 3, group_index = 2 },
+		{ name = "copilot" },
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "path", max_item_count = 3 },
 	},
 })
 -- luasnip.config.setup({})

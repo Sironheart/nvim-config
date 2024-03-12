@@ -1,5 +1,4 @@
 { inputs }:
-
 let
   inherit (inputs.nixpkgs) legacyPackages;
 in
@@ -32,7 +31,6 @@ rec {
       # integrations
       vimPlugins.nvim-lspconfig
       vimPlugins.nvim-treesitter.withAllGrammars
-      vimPlugins.rustaceanvim
       vimPlugins.vim-just
 
       # telescope
@@ -64,6 +62,7 @@ rec {
       vimPlugins.nvim-treesitter-context
       vimPlugins.oil-nvim
       vimPlugins.trouble-nvim
+      vimPlugins.vim-test
 
       # basic plugins
       vimPlugins.fidget-nvim
@@ -72,22 +71,22 @@ rec {
       vimPlugins.neodev-nvim
       vimPlugins.nvim-colorizer-lua
       vimPlugins.nvim-web-devicons
+      vimPlugins.oxocarbon-nvim
       vimPlugins.rainbow-delimiters-nvim
       vimPlugins.vim-sleuth
       vimPlugins.which-key-nvim
 
       # configuration
-      vimPlugins.oxocarbon-nvim
       sironheart-nvim
     ];
 
   mkExtraPackages = { system }:
     let
       inherit (pkgs) nodePackages;
-      pkgs = (import inputs.nixpkgs {
+      pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-      });
+      };
     in
     [
       nodePackages."bash-language-server"
@@ -99,13 +98,13 @@ rec {
       nodePackages."yaml-language-server"
 
       pkgs.cuelsp
-      pkgs.elixir-ls
       pkgs.gopls
       pkgs.java-language-server
       pkgs.jsonnet-language-server
       pkgs.kotlin-language-server
       pkgs.ktlint
       pkgs.lua-language-server
+      pkgs.nil
       pkgs.rust-analyzer
       pkgs.terraform-ls
       pkgs.zls

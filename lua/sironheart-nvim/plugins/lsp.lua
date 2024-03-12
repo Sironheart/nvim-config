@@ -23,7 +23,9 @@ local language_servers = {
 	elixirls = {},
 	gleam = {},
 	gopls = {},
-	html = { filetypes = { "html" } },
+	html = {
+		filetypes = { "html" },
+	},
 	java_language_server = {},
 	jsonls = {},
 	kotlin_language_server = {},
@@ -33,6 +35,16 @@ local language_servers = {
 			telemetry = { enable = false },
 		},
 	},
+	nil_ls = {
+		settings = {
+			["nil"] = {
+				formatting = {
+					command = { "nixpkgs-fmt" },
+				},
+			},
+		},
+	},
+	rust_analyzer = {},
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},

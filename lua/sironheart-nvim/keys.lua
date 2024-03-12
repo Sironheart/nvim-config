@@ -43,6 +43,40 @@ local function init()
 
 	-- Auto-Session Keymaps
 	vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, { noremap = true })
+
+	-- Trouble Keymaps
+	vim.keymap.set("n", "<leader>xx", function()
+		require("trouble").toggle()
+	end)
+	vim.keymap.set("n", "<leader>xw", function()
+		require("trouble").toggle("workspace_diagnostics")
+	end)
+	vim.keymap.set("n", "<leader>xd", function()
+		require("trouble").toggle("document_diagnostics")
+	end)
+	vim.keymap.set("n", "<leader>xq", function()
+		require("trouble").toggle("quickfix")
+	end)
+	vim.keymap.set("n", "<leader>xl", function()
+		require("trouble").toggle("loclist")
+	end)
+	vim.keymap.set("n", "gR", function()
+		require("trouble").toggle("lsp_references")
+	end)
+
+	-- vim-tmux-navigator keymaps
+	-- vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
+	-- vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
+	-- vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
+	-- vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
+
+	-- vim-test keymaps
+	vim.keymap.set("n", "<leader>tt", "<cmd>TestFile<CR>")
+	vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<CR>")
+	vim.keymap.set("n", "<leader>ts", "<cmd>TestSuite<CR>")
+	vim.keymap.set("n", "<leader>tl", "<cmd>TestLast<CR>")
+	vim.keymap.set("n", "<leader>tf", "<cmd>TestVisit<CR>")
+	vim.cmd("let test#strategy = 'neovim'")
 end
 
 local function lsp_bindings(event)
@@ -151,9 +185,25 @@ local function harpoon(innerHarpoon, toggle_telescope)
 	end)
 end
 
+local function cmp()
+	local cmp = require("cmp")
+	local cmp_select = { behaviour = cmp.SelectBehavior.Select }
+	local mappings = {
+		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+		["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<Tab>"] = nil,
+		["<S-Tab>"] = nil,
+	}
+
+	return mappings
+end
+
 return {
+	cmp = cmp,
 	gitsigns = gitsigns,
-	lsp_bindings = lsp_bindings,
 	harpoon = harpoon,
 	init = init,
+	lsp_bindings = lsp_bindings,
 }

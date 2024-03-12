@@ -5,16 +5,24 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       flake = {
-        lib = import ./lib { inherit inputs; };
+        lib = import ./lib {inherit inputs;};
       };
 
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = {
+        config,
+        self',
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
+        formatter = pkgs.alejandra;
+
         packages = {
           default = pkgs.vimUtils.buildVimPlugin {
             name = "sironheart-nvim";
