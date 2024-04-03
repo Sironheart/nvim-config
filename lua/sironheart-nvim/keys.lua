@@ -18,6 +18,12 @@ local function init()
 	vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[F]ind by [G]rep" })
 	vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[F]ind [D]iagnostics" })
 	vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[F]ind [R]esume" })
+	vim.keymap.set(
+		"n",
+		"<leader>sh",
+		require("telescope").extensions.notify.notify,
+		{ desc = "[F]ind [H]istory notification" }
+	)
 
 	-- lsp
 	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
@@ -65,10 +71,10 @@ local function init()
 	end)
 
 	-- vim-tmux-navigator keymaps
-	-- vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
-	-- vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
-	-- vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
-	-- vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
+	vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
+	vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
+	vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
+	vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
 
 	-- vim-test keymaps
 	vim.keymap.set("n", "<leader>tt", "<cmd>TestFile<CR>")

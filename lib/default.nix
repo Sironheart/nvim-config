@@ -1,14 +1,11 @@
-{ inputs }:
-let
+{inputs}: let
   inherit (inputs.nixpkgs) legacyPackages;
-in
-rec {
-  buildSironheartNvimPlugin = { system }:
-    let
-      inherit (pkgs) vimUtils;
-      inherit (vimUtils) buildVimPlugin;
-      pkgs = legacyPackages.${system};
-    in
+in rec {
+  buildSironheartNvimPlugin = {system}: let
+    inherit (pkgs) vimUtils;
+    inherit (vimUtils) buildVimPlugin;
+    pkgs = legacyPackages.${system};
+  in
     buildVimPlugin {
       name = "sironheart-nvim";
       postInstall = ''
@@ -21,104 +18,102 @@ rec {
       src = ../.;
     };
 
-  mkNeovimPlugins = { system }:
-    let
-      inherit (pkgs) vimPlugins;
-      pkgs = legacyPackages.${system};
-      sironheart-nvim = buildSironheartNvimPlugin { inherit system; };
-    in
-    [
-      # integrations
-      vimPlugins.nvim-lspconfig
-      vimPlugins.nvim-treesitter.withAllGrammars
-      vimPlugins.vim-just
+  mkNeovimPlugins = {system}: let
+    inherit (pkgs) vimPlugins;
+    pkgs = legacyPackages.${system};
+    sironheart-nvim = buildSironheartNvimPlugin {inherit system;};
+  in [
+    # integrations
+    vimPlugins.nvim-lspconfig
+    vimPlugins.nvim-treesitter.withAllGrammars
+    vimPlugins.vim-just
 
-      # telescope
-      vimPlugins.plenary-nvim
-      vimPlugins.telescope-nvim
-      vimPlugins.telescope-ui-select-nvim
+    # telescope
+    vimPlugins.plenary-nvim
+    vimPlugins.telescope-nvim
+    vimPlugins.telescope-ui-select-nvim
 
-      # nvim cmp
-      vimPlugins.cmp-buffer
-      vimPlugins.cmp-nvim-lsp
-      vimPlugins.cmp-path
-      vimPlugins.cmp_luasnip
-      vimPlugins.conform-nvim
-      vimPlugins.copilot-cmp
-      vimPlugins.copilot-lua
-      vimPlugins.friendly-snippets
-      vimPlugins.lspkind-nvim
-      vimPlugins.luasnip
-      vimPlugins.nvim-cmp
-      vimPlugins.nvim-ts-autotag
+    # nvim cmp
+    vimPlugins.cmp-buffer
+    vimPlugins.cmp-nvim-lsp
+    vimPlugins.cmp-path
+    vimPlugins.cmp_luasnip
+    vimPlugins.conform-nvim
+    vimPlugins.friendly-snippets
+    vimPlugins.lspkind-nvim
+    vimPlugins.luasnip
+    vimPlugins.nvim-cmp
+    vimPlugins.nvim-ts-autotag
 
-      # extras
-      vimPlugins.auto-session
-      vimPlugins.comment-nvim
-      vimPlugins.gitsigns-nvim
-      vimPlugins.harpoon2
-      vimPlugins.mini-nvim
-      vimPlugins.nui-nvim
-      vimPlugins.nvim-treesitter-context
-      vimPlugins.oil-nvim
-      vimPlugins.trouble-nvim
-      vimPlugins.vim-test
+    # extras
+    vimPlugins.auto-session
+    vimPlugins.comment-nvim
+    vimPlugins.gitsigns-nvim
+    vimPlugins.harpoon2
+    vimPlugins.mini-nvim
+    vimPlugins.nui-nvim
+    vimPlugins.nvim-notify
+    vimPlugins.nvim-treesitter-context
+    vimPlugins.oil-nvim
+    vimPlugins.trouble-nvim
+    vimPlugins.vim-test
 
-      # basic plugins
-      vimPlugins.fidget-nvim
-      vimPlugins.gitsigns-nvim
-      vimPlugins.mkdir-nvim
-      vimPlugins.neodev-nvim
-      vimPlugins.nvim-colorizer-lua
-      vimPlugins.nvim-web-devicons
-      vimPlugins.oxocarbon-nvim
-      vimPlugins.rainbow-delimiters-nvim
-      vimPlugins.vim-sleuth
-      vimPlugins.which-key-nvim
+    # basic plugins
+    vimPlugins.catppuccin-nvim
+    vimPlugins.fidget-nvim
+    vimPlugins.gitsigns-nvim
+    vimPlugins.mkdir-nvim
+    vimPlugins.noice-nvim
+    vimPlugins.neodev-nvim
+    vimPlugins.nvim-colorizer-lua
+    vimPlugins.nvim-web-devicons
+    vimPlugins.rainbow-delimiters-nvim
+    vimPlugins.vim-sleuth
+    vimPlugins.vim-tmux-navigator
+    vimPlugins.which-key-nvim
 
-      # configuration
-      sironheart-nvim
-    ];
+    # configuration
+    sironheart-nvim
+  ];
 
-  mkExtraPackages = { system }:
-    let
-      inherit (pkgs) nodePackages;
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    in
-    [
-      nodePackages."bash-language-server"
-      nodePackages."diagnostic-languageserver"
-      nodePackages."dockerfile-language-server-nodejs"
-      nodePackages."typescript"
-      nodePackages."typescript-language-server"
-      nodePackages."vscode-langservers-extracted"
-      nodePackages."yaml-language-server"
+  mkExtraPackages = {system}: let
+    inherit (pkgs) nodePackages;
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+  in [
+    nodePackages."bash-language-server"
+    nodePackages."diagnostic-languageserver"
+    nodePackages."dockerfile-language-server-nodejs"
+    nodePackages."typescript"
+    nodePackages."typescript-language-server"
+    nodePackages."vscode-langservers-extracted"
+    nodePackages."yaml-language-server"
 
-      pkgs.cuelsp
-      pkgs.gopls
-      pkgs.java-language-server
-      pkgs.jsonnet-language-server
-      pkgs.kotlin-language-server
-      pkgs.ktlint
-      pkgs.lua-language-server
-      pkgs.nil
-      pkgs.rust-analyzer
-      pkgs.terraform-ls
-      pkgs.zls
+    pkgs.cuelsp
+    pkgs.gopls
+    pkgs.java-language-server
+    pkgs.jsonnet-language-server
+    pkgs.kotlin-language-server
+    pkgs.ktlint
+    pkgs.lua-language-server
+    pkgs.nil
+    pkgs.rust-analyzer-unwrapped
+    pkgs.terraform-ls
+    pkgs.zls
 
-      # formatters
-      pkgs.biome
-      pkgs.eslint_d
-      pkgs.gofumpt
-      pkgs.golines
-      pkgs.nixpkgs-fmt
-      pkgs.rustfmt
-      pkgs.stylua
-      pkgs.terraform
-    ];
+    # formatters
+    pkgs.alejandra
+    pkgs.biome
+    pkgs.eslint_d
+    pkgs.gofumpt
+    pkgs.golines
+    pkgs.nixpkgs-fmt
+    pkgs.rustfmt
+    pkgs.stylua
+    pkgs.terraform
+  ];
 
   mkExtraConfig = ''
     lua << EOF
@@ -126,17 +121,16 @@ rec {
     EOF
   '';
 
-  mkNeovim = { system }:
-    let
-      inherit (pkgs) lib neovim;
-      extraPackages = mkExtraPackages { inherit system; };
-      pkgs = legacyPackages.${system};
-      start = mkNeovimPlugins { inherit system; };
-    in
+  mkNeovim = {system}: let
+    inherit (pkgs) lib neovim;
+    extraPackages = mkExtraPackages {inherit system;};
+    pkgs = legacyPackages.${system};
+    start = mkNeovimPlugins {inherit system;};
+  in
     neovim.override {
       configure = {
         customRC = mkExtraConfig;
-        packages.main = { inherit start; };
+        packages.main = {inherit start;};
       };
       extraMakeWrapperArgs = ''--suffix PATH : "${lib.makeBinPath extraPackages}"'';
       withNodeJs = true;
@@ -144,21 +138,19 @@ rec {
       withRuby = false;
     };
 
-  mkHomeManager = { system }:
-    let
-      extraConfig = mkExtraConfig;
-      extraPackages = mkExtraPackages { inherit system; };
-      plugins = mkNeovimPlugins { inherit system; };
-    in
-    {
-      inherit extraConfig extraPackages plugins;
+  mkHomeManager = {system}: let
+    extraConfig = mkExtraConfig;
+    extraPackages = mkExtraPackages {inherit system;};
+    plugins = mkNeovimPlugins {inherit system;};
+  in {
+    inherit extraConfig extraPackages plugins;
 
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
 
-      withNodeJs = true;
-      withPython3 = false;
-      withRuby = false;
-    };
+    withNodeJs = true;
+    withPython3 = false;
+    withRuby = false;
+  };
 }

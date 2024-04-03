@@ -2,19 +2,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 local lspkind = require("lspkind")
 
-require("copilot").setup({
-	suggestion = { enabled = false },
-	panel = { enabled = false },
-})
-
-require("copilot_cmp").setup()
 require("luasnip.loaders.from_vscode").lazy_load()
-lspkind.init({
-	symbol_map = {
-		Copilot = "",
-	},
-})
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 cmp.setup({
 	experimental = {
@@ -56,7 +44,6 @@ cmp.setup({
 		["<S-Tab>"] = nil,
 	}),
 	sources = {
-		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "path", max_item_count = 3 },

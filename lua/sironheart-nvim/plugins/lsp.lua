@@ -22,7 +22,13 @@ local language_servers = {
 	cssls = {},
 	elixirls = {},
 	gleam = {},
-	gopls = {},
+	gopls = {
+		completeUnimported = true,
+		usePlaceholders = true,
+		analyses = {
+			unusedparams = true,
+		},
+	},
 	html = {
 		filetypes = { "html" },
 	},
@@ -44,7 +50,18 @@ local language_servers = {
 			},
 		},
 	},
-	rust_analyzer = {},
+	rust_analyzer = {
+		lens = {
+			enable = true,
+		},
+		checkOnSave = {
+			command = "clippy",
+			extraArgs = { "--tests" },
+		},
+		files = {
+			excludeDirs = { "tests/node_modules", "node_modules", ".direnv" },
+		},
+	},
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
@@ -53,7 +70,9 @@ local language_servers = {
 
 -- Initialize servers
 for server, server_config in pairs(language_servers) do
-	local config = {}
+	local config = {
+		-- capabilities = capabilities,
+	}
 
 	if server_config then
 		for k, v in pairs(server_config) do
@@ -81,7 +100,7 @@ require("conform").setup({
 		just = { "just" },
 		kotlin = { "ktlint" },
 		lua = { "stylua" },
-		nix = { "nixfmt" },
+		nix = { "alejandra" },
 		terraform = { "terraform_fmt" },
 		zig = { "zigfmt" },
 	},
