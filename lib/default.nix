@@ -88,11 +88,15 @@ in rec {
     nodePackages."dockerfile-language-server-nodejs"
     nodePackages."typescript"
     nodePackages."typescript-language-server"
+    nodePackages."volar"
     nodePackages."vscode-langservers-extracted"
     nodePackages."yaml-language-server"
 
     pkgs.cuelsp
+    pkgs.cue
+    pkgs.emmet-ls
     pkgs.gopls
+    pkgs.gotools
     pkgs.java-language-server
     pkgs.jsonnet-language-server
     pkgs.kotlin-language-server
@@ -107,8 +111,10 @@ in rec {
     pkgs.alejandra
     pkgs.biome
     pkgs.eslint_d
+    pkgs.ktlint
     pkgs.gofumpt
     pkgs.golines
+    pkgs.jq
     pkgs.nixpkgs-fmt
     pkgs.rustfmt
     pkgs.stylua

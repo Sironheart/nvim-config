@@ -20,8 +20,14 @@ capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp"
 
 local language_servers = {
 	cssls = {},
-	elixirls = {},
-	gleam = {},
+	emmet_ls = {
+		options = {
+			["jsx.enabled"] = true,
+		},
+	},
+	elixirls = {
+		cmd = { "elixir-ls" },
+	},
 	gopls = {
 		completeUnimported = true,
 		usePlaceholders = true,
@@ -29,9 +35,7 @@ local language_servers = {
 			unusedparams = true,
 		},
 	},
-	html = {
-		filetypes = { "html" },
-	},
+	html = {},
 	java_language_server = {},
 	jsonls = {},
 	kotlin_language_server = {},
@@ -65,22 +69,15 @@ local language_servers = {
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
+	volar = {},
 	zls = {},
 }
 
 -- Initialize servers
 for server, server_config in pairs(language_servers) do
-	local config = {
-		-- capabilities = capabilities,
-	}
+	server_config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server_config.capabilities or {})
 
-	if server_config then
-		for k, v in pairs(server_config) do
-			config[k] = v
-		end
-	end
-
-	lspconfig[server].setup(config)
+	lspconfig[server].setup(server_config)
 end
 
 treesitter.setup({
@@ -94,13 +91,15 @@ treesitter_context.setup()
 require("conform").setup({
 	formatters_by_ft = {
 		cue = { "cuefmt" },
-		gleam = { "gleam" },
 		go = { "goimports", "gofmt" },
-		javascript = { "biome", "prettierd" },
+		javascript = { { "biome", "prettierd", "prettier" } },
+		json = { "jq" },
 		just = { "just" },
 		kotlin = { "ktlint" },
 		lua = { "stylua" },
 		nix = { "alejandra" },
+		php = { "php_cs_fixer" },
+		rust = { "rustfmt" },
 		terraform = { "terraform_fmt" },
 		zig = { "zigfmt" },
 	},

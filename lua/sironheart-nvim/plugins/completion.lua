@@ -49,4 +49,4 @@ cmp.setup({
 		{ name = "path", max_item_count = 3 },
 	},
 })
--- luasnip.config.setup({})
+luasnip.config.setup({})
