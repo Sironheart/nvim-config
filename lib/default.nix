@@ -56,7 +56,6 @@ in rec {
     vimPlugins.nvim-treesitter-context
     vimPlugins.oil-nvim
     vimPlugins.trouble-nvim
-    vimPlugins.vim-test
 
     # basic plugins
     vimPlugins.catppuccin-nvim
@@ -69,7 +68,6 @@ in rec {
     vimPlugins.nvim-web-devicons
     vimPlugins.rainbow-delimiters-nvim
     vimPlugins.vim-sleuth
-    vimPlugins.vim-tmux-navigator
     vimPlugins.which-key-nvim
 
     # configuration
@@ -100,7 +98,6 @@ in rec {
     pkgs.java-language-server
     pkgs.jsonnet-language-server
     pkgs.kotlin-language-server
-    pkgs.ktlint
     pkgs.lua-language-server
     pkgs.nil
     pkgs.rust-analyzer-unwrapped
@@ -111,7 +108,6 @@ in rec {
     pkgs.alejandra
     pkgs.biome
     pkgs.eslint_d
-    pkgs.ktlint
     pkgs.gofumpt
     pkgs.golines
     pkgs.jq

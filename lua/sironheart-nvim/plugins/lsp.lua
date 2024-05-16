@@ -95,13 +95,11 @@ require("conform").setup({
 		javascript = { { "biome", "prettierd", "prettier" } },
 		json = { "jq" },
 		just = { "just" },
-		kotlin = { "ktlint" },
 		lua = { "stylua" },
 		nix = { "alejandra" },
 		php = { "php_cs_fixer" },
 		rust = { "rustfmt" },
 		terraform = { "terraform_fmt" },
-		zig = { "zigfmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,

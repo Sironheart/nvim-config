@@ -68,20 +68,6 @@ local function init()
 	vim.keymap.set("n", "gR", function()
 		require("trouble").toggle("lsp_references")
 	end)
-
-	-- vim-tmux-navigator keymaps
-	vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<CR>")
-	vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<CR>")
-	vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<CR>")
-	vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<CR>")
-
-	-- vim-test keymaps
-	vim.keymap.set("n", "<leader>tt", "<cmd>TestFile<CR>")
-	vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<CR>")
-	vim.keymap.set("n", "<leader>ts", "<cmd>TestSuite<CR>")
-	vim.keymap.set("n", "<leader>tl", "<cmd>TestLast<CR>")
-	vim.keymap.set("n", "<leader>tf", "<cmd>TestVisit<CR>")
-	vim.cmd("let test#strategy = 'neovim'")
 end
 
 local function lsp_bindings(event)
