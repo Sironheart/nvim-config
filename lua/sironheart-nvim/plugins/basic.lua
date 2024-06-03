@@ -7,6 +7,9 @@ require("auto-session").setup({
 	auto_session_suppress_dirs = { "~/", "~/projects", "~/privat", "~/Downloads", "/" },
 })
 
+-- Rust Crates
+require("crates").setup()
+
 -- Trouble
 require("trouble").setup()
 

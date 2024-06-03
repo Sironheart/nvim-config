@@ -27,6 +27,8 @@ in rec {
     vimPlugins.nvim-lspconfig
     vimPlugins.nvim-treesitter.withAllGrammars
     vimPlugins.vim-just
+    vimPlugins.rustaceanvim
+    vimPlugins.crates-nvim
 
     # telescope
     vimPlugins.plenary-nvim
@@ -102,7 +104,6 @@ in rec {
     pkgs.nil
     pkgs.rust-analyzer-unwrapped
     pkgs.terraform-ls
-    pkgs.zls
 
     # formatters
     pkgs.alejandra

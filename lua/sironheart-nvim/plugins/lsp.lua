@@ -54,23 +54,10 @@ local language_servers = {
 			},
 		},
 	},
-	rust_analyzer = {
-		lens = {
-			enable = true,
-		},
-		checkOnSave = {
-			command = "clippy",
-			extraArgs = { "--tests" },
-		},
-		files = {
-			excludeDirs = { "tests/node_modules", "node_modules", ".direnv" },
-		},
-	},
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
 	volar = {},
-	zls = {},
 }
 
 -- Initialize servers
@@ -79,6 +66,28 @@ for server, server_config in pairs(language_servers) do
 
 	lspconfig[server].setup(server_config)
 end
+
+-- Rustacean Nvim Plugin Setup, especially for the LSP
+vim.g.rustaceanvim = {
+	server = {
+		settings = {
+			["rust-analyzer"] = {
+				cargo = {
+					buildScripts = {
+						enable = true,
+					},
+				},
+				diagnostics = {
+					enable = false,
+				},
+				files = {
+					excludeDirs = { ".direnv", ".git" },
+					watcherExclude = { ".direnv", ".git" },
+				},
+			},
+		},
+	},
+}
 
 treesitter.setup({
 	highlight = { enable = true },
