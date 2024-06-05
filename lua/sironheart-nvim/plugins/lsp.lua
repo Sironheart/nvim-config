@@ -35,7 +35,9 @@ local language_servers = {
 			unusedparams = true,
 		},
 	},
-	html = {},
+	html = {
+		filetypes = { "html", "templ", "liquid" },
+	},
 	java_language_server = {},
 	jsonls = {},
 	kotlin_language_server = {},
