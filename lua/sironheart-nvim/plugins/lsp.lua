@@ -24,6 +24,7 @@ local language_servers = {
 		options = {
 			["jsx.enabled"] = true,
 		},
+		filetypes = { "html", "templ", "liquid", "mjml" },
 	},
 	elixirls = {
 		cmd = { "elixir-ls" },
@@ -36,7 +37,7 @@ local language_servers = {
 		},
 	},
 	html = {
-		filetypes = { "html", "templ", "liquid" },
+		filetypes = { "html", "templ", "liquid", "mjml" },
 	},
 	java_language_server = {},
 	jsonls = {},

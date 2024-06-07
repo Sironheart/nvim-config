@@ -35,6 +35,13 @@ in rec {
     vimPlugins.telescope-nvim
     vimPlugins.telescope-ui-select-nvim
 
+    # nvim dap
+    vimPlugins.nvim-dap
+    vimPlugins.nvim-dap-ui
+    vimPlugins.nvim-nio
+    vimPlugins.nvim-dap-virtual-text
+    vimPlugins.nvim-dap-go
+
     # nvim cmp
     vimPlugins.cmp-buffer
     vimPlugins.cmp-nvim-lsp
@@ -83,7 +90,7 @@ in rec {
       config.allowUnfree = true;
     };
   in [
-    nodePackages."bash-language-server"
+    # nodePackages."bash-language-server"
     nodePackages."diagnostic-languageserver"
     nodePackages."dockerfile-language-server-nodejs"
     nodePackages."typescript"
@@ -116,6 +123,9 @@ in rec {
     pkgs.rustfmt
     pkgs.stylua
     pkgs.terraform
+
+    # debug tools
+    pkgs.delve
   ];
 
   mkExtraConfig = ''

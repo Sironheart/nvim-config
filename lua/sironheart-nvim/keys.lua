@@ -30,6 +30,15 @@ local function init()
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
+	-- dap
+	local dap = require("dap")
+	vim.keymap.set("n", "<leader>dt", dap.toggle_breakpoint, {})
+	vim.keymap.set("n", "<leader>ds", dap.continue, {})
+	vim.keymap.set("n", "<leader>do", dap.step_over, {})
+	vim.keymap.set("n", "<leader>di", dap.step_into, {})
+	vim.keymap.set("n", "<leader>da", dap.step_out, {})
+	vim.keymap.set("n", "<leader>ds", dap.terminate, {})
+
 	-- [[ Basic Keymaps ]]
 
 	-- TIP: Disable arrow keys in normal mode
