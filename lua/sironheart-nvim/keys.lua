@@ -12,17 +12,11 @@ local function init()
 		}))
 	end, { desc = "[/] Fuzzily search in current buffer" })
 
-	vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[F]ind [F]iles" })
-	vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[F]ind current [W]ord" })
-	vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[F]ind by [G]rep" })
-	vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[F]ind [D]iagnostics" })
-	vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[F]ind [R]esume" })
-	vim.keymap.set(
-		"n",
-		"<leader>sh",
-		require("telescope").extensions.notify.notify,
-		{ desc = "[F]ind [H]istory notification" }
-	)
+	vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
+	vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
+	vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch using [G]rep" })
+	vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+	vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
 
 	-- lsp
 	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
@@ -49,7 +43,7 @@ local function init()
 
 	-- Keymaps for better default experience
 	-- See `:help vim.keymap.set()`
-	vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+	-- vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 	-- Remap for dealing with word wrap
 	vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -80,12 +74,6 @@ local function init()
 end
 
 local function lsp_bindings(event)
-	-- NOTE: Remember that lua is a real programming language, and as such it is possible
-	-- to define small helper and utility functions so you don't have to repeat yourself
-	-- many times.
-	--
-	-- In this case, we create a function that lets us more easily define mappings specific
-	-- for LSP related items. It sets the mode, buffer and description for us each time.
 	local map = function(keys, func, desc)
 		vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 	end
@@ -93,7 +81,9 @@ local function lsp_bindings(event)
 	-- Jump to the definition of the word under your cursor.
 	--  This is where a variable was first declared, or where a function is defined, etc.
 	--  To jump back, press <C-T>.
-	map("gd", function()
+	map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+
+	map("gvd", function()
 		require("telescope.builtin").lsp_definitions({ jump_type = "vsplit" })
 	end, "[G]oto [D]efinition")
 
@@ -104,7 +94,9 @@ local function lsp_bindings(event)
 
 	-- Jump to the implementation of the word under your cursor.
 	--  Useful when your language has ways of declaring types without an actual implementation.
-	map("gI", function()
+	map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+
+	map("gvI", function()
 		require("telescope.builtin").lsp_implementations({ jump_type = "vsplit" })
 	end, "[G]oto [I]mplementation")
 
@@ -112,7 +104,7 @@ local function lsp_bindings(event)
 	--  Useful when you're not sure what type a variable is and you want to see
 	--  the definition of its *type*, not where it was *defined*.
 	map("<leader>D", function()
-		require("telescope.builtin").lsp_type_definitions({ jump_type = "vsplit" })
+		require("telescope.builtin").lsp_type_definitions()
 	end, "Type [D]efinition")
 
 	-- Rename the variable under your cursor
@@ -150,42 +142,7 @@ local function lsp_bindings(event)
 	end
 end
 
-local function gitsigns(bufnr)
-	local gs = package.loaded.gitsigns
-
-	local function map(mode, l, r, opts)
-		opts = opts or {}
-		opts.buffer = bufnr
-		vim.keymap.set(mode, l, r, opts)
-	end
-
-	-- Actions
-	-- Toggles
-	map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "toggle git blame line" })
-	map("n", "<leader>td", gs.toggle_deleted, { desc = "toggle git show deleted" })
-
-	-- Text object
-	map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
-end
-
-local function harpoon(innerHarpoon, toggle_telescope)
-	vim.keymap.set("n", "<leader>ha", function()
-		innerHarpoon:list():append()
-	end)
-	vim.keymap.set("n", "<leader>hl", function()
-		toggle_telescope(innerHarpoon:list())
-	end, { desc = "Open harpoon window" })
-
-	-- Toggle previous & next buffers stored within Harpoon list
-	vim.keymap.set("n", "<C-S-P>", function()
-		innerHarpoon:list():prev()
-	end)
-	vim.keymap.set("n", "<C-S-N>", function()
-		innerHarpoon:list():next()
-	end)
-end
-
-local function cmp()
+local function nvim_cmp()
 	local cmp = require("cmp")
 	local cmp_select = { behaviour = cmp.SelectBehavior.Select }
 	local mappings = {
@@ -201,9 +158,7 @@ local function cmp()
 end
 
 return {
-	cmp = cmp,
-	gitsigns = gitsigns,
-	harpoon = harpoon,
+	cmp = nvim_cmp,
 	init = init,
 	lsp_bindings = lsp_bindings,
 }

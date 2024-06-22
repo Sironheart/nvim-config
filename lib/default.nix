@@ -58,7 +58,6 @@ in rec {
     vimPlugins.auto-session
     vimPlugins.comment-nvim
     vimPlugins.gitsigns-nvim
-    vimPlugins.harpoon2
     vimPlugins.mini-nvim
     vimPlugins.nui-nvim
     vimPlugins.nvim-notify
