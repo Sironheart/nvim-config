@@ -66,7 +66,7 @@ in rec {
     vimPlugins.trouble-nvim
 
     # basic plugins
-    vimPlugins.catppuccin-nvim
+    vimPlugins.oxocarbon-nvim
     vimPlugins.fidget-nvim
     vimPlugins.gitsigns-nvim
     vimPlugins.mkdir-nvim
