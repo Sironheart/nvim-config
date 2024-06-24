@@ -66,7 +66,7 @@ in rec {
     vimPlugins.trouble-nvim
 
     # basic plugins
-    vimPlugins.catppuccin-nvim
+    vimPlugins.oxocarbon-nvim
     vimPlugins.fidget-nvim
     vimPlugins.gitsigns-nvim
     vimPlugins.mkdir-nvim
@@ -89,12 +89,9 @@ in rec {
       config.allowUnfree = true;
     };
   in [
-    # nodePackages."bash-language-server"
     nodePackages."diagnostic-languageserver"
     nodePackages."dockerfile-language-server-nodejs"
-    nodePackages."typescript"
     nodePackages."typescript-language-server"
-    nodePackages."volar"
     nodePackages."vscode-langservers-extracted"
     nodePackages."yaml-language-server"
 

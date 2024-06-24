@@ -60,7 +60,6 @@ local language_servers = {
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
-	volar = {},
 }
 
 -- Initialize servers
