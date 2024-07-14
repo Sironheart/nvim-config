@@ -69,6 +69,7 @@ in rec {
     vimPlugins.oxocarbon-nvim
     vimPlugins.fidget-nvim
     vimPlugins.gitsigns-nvim
+    vimPlugins.hardtime-nvim
     vimPlugins.mkdir-nvim
     vimPlugins.noice-nvim
     vimPlugins.neodev-nvim

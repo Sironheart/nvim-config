@@ -16,14 +16,14 @@ telescope.setup({
 		file_ignore_patterns = {
 			"node_modules",
 			"yarn.lock",
-			".git",
 			".sl",
 			"_build",
 			".next",
-			"^.git",
+			"^.git\\/",
 			"^.idea",
 			"^.fleet",
 			"^.vscode",
+			"^.elixir_ls",
 		},
 		mappings = {
 			i = {
@@ -44,7 +44,7 @@ telescope.setup({
 	},
 	pickers = {
 		find_files = {
-			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "--trim" },
+			find_command = { "rg", "--files", "--hidden", "--glob", "!{**/.git}/**", "--trim" },
 		},
 	},
 })
