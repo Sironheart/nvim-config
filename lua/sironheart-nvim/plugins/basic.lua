@@ -1,9 +1,6 @@
 -- Comment blocks
 require("Comment").setup()
 
--- Learn better movement
-require("hardtime").setup()
-
 -- auto-session
 require("auto-session").setup({
 	log_level = "warn",
