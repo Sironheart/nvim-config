@@ -89,6 +89,7 @@ in rec {
       config.allowUnfree = true;
     };
   in [
+    nodePackages."@astrojs/language-server"
     nodePackages."diagnostic-languageserver"
     nodePackages."dockerfile-language-server-nodejs"
     nodePackages."typescript-language-server"
