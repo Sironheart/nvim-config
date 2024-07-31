@@ -21,6 +21,7 @@ capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp"
 local language_servers = {
 	astro = {},
 	cssls = {},
+	diagnosticls = {},
 	emmet_ls = {
 		options = {
 			["jsx.enabled"] = true,
@@ -49,6 +50,8 @@ local language_servers = {
 			telemetry = { enable = false },
 		},
 	},
+	marksman = {},
+	nickel_ls = {},
 	nil_ls = {
 		settings = {
 			["nil"] = {
@@ -104,18 +107,19 @@ require("conform").setup({
 	formatters_by_ft = {
 		cue = { "cuefmt" },
 		go = { "goimports", "gofmt" },
-		javascript = { { "biome", "prettierd", "prettier" } },
+		javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
 		json = { "jq" },
 		just = { "just" },
 		lua = { "stylua" },
+		markdown = { "markdownlint-cli2" },
+		nickel = { "nickel" },
 		nix = { "alejandra" },
-		php = { "php_cs_fixer" },
 		rust = { "rustfmt" },
 		terraform = { "terraform_fmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
-		lsp_fallback = true,
+		lsp_format = "fallback",
 	},
 })
 

@@ -93,36 +93,39 @@ in rec {
     nodePackages."diagnostic-languageserver"
     nodePackages."dockerfile-language-server-nodejs"
     nodePackages."typescript-language-server"
-    nodePackages."vscode-langservers-extracted"
     nodePackages."yaml-language-server"
 
-    pkgs.cuelsp
-    pkgs.cue
-    pkgs.emmet-ls
-    pkgs.gopls
-    pkgs.gotools
-    pkgs.java-language-server
-    pkgs.jsonnet-language-server
-    pkgs.kotlin-language-server
-    pkgs.lua-language-server
-    pkgs.nil
-    pkgs.rust-analyzer-unwrapped
-    pkgs.terraform-ls
+    pkgs.cuelsp # Cue
+    pkgs.emmet-ls # HTML/ CSS
+    pkgs.gopls # Go
+    pkgs.gotools # Go
+    pkgs.java-language-server # Java
+    pkgs.jsonnet-language-server # JSON
+    pkgs.kotlin-language-server # Kotlin
+    pkgs.lua-language-server # Lua
+    pkgs.marksman # Markdown
+    pkgs.nil # Nix
+    pkgs.nls # Nickel Lang
+    pkgs.rust-analyzer-unwrapped # Rust
+    pkgs.terraform-ls # HCL
 
     # formatters
-    pkgs.alejandra
-    pkgs.biome
-    pkgs.eslint_d
-    pkgs.gofumpt
-    pkgs.golines
-    pkgs.jq
-    pkgs.nixpkgs-fmt
-    pkgs.rustfmt
-    pkgs.stylua
-    pkgs.terraform
+    pkgs.alejandra # Nix
+    pkgs.biome # JS
+    pkgs.cue # Cue
+    pkgs.eslint_d # JS
+    pkgs.gofumpt # Go
+    pkgs.golines # Go
+    pkgs.jq # JSON
+    pkgs.markdownlint-cli2 # Markdown
+    pkgs.nickel # Nickel
+    pkgs.nixpkgs-fmt # Nix
+    pkgs.rustfmt # Rust
+    pkgs.stylua # Lua
+    pkgs.terraform # HCL
 
     # debug tools
-    pkgs.delve
+    pkgs.delve # Go
   ];
 
   mkExtraConfig = ''
@@ -160,7 +163,7 @@ in rec {
     vimAlias = true;
 
     withNodeJs = true;
-    withPython3 = false;
-    withRuby = false;
+    withPython3 = true;
+    withRuby = true;
   };
 }

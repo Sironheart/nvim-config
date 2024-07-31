@@ -9,6 +9,9 @@ local function init()
 	vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
 	vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
 
+	-- Auto-Session Keymaps
+	vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, { noremap = true })
+
 	-- lsp
 	vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
@@ -25,23 +28,22 @@ local function init()
 	vim.keymap.set("n", "<leader>ds", dap.terminate, {})
 
 	-- [[ Basic Keymaps ]]
-
 	-- TIP: Disable arrow keys in normal mode
 	vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
 	vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
 	vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
 	vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
 
+	vim.keymap.set("n", "<M-.>", ":bnext<CR>")
+	vim.keymap.set("n", "<M-,>", ":bprevious<CR>")
+
 	-- Keymaps for better default experience
 	-- See `:help vim.keymap.set()`
-	-- vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+	vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 	-- Remap for dealing with word wrap
 	vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 	vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
-	-- Auto-Session Keymaps
-	vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, { noremap = true })
 
 	-- Trouble Keymaps
 	vim.keymap.set("n", "<leader>xx", function()

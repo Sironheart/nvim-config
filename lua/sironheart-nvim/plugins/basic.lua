@@ -13,9 +13,12 @@ require("crates").setup()
 -- Trouble
 require("trouble").setup()
 
+-- Notify
 require("notify").setup({
 	background_colour = "#000000",
 })
+
+-- Noice
 require("noice").setup({
 	lsp = {
 		override = {
