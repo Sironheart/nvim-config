@@ -103,21 +103,20 @@ in rec {
     pkgs.jsonnet-language-server # JSON
     pkgs.kotlin-language-server # Kotlin
     pkgs.lua-language-server # Lua
-    pkgs.marksman # Markdown
     pkgs.nil # Nix
     pkgs.nls # Nickel Lang
     pkgs.rust-analyzer-unwrapped # Rust
     pkgs.terraform-ls # HCL
+    pkgs.vue-language-server
 
     # formatters
+    nodePackages.prettier
     pkgs.alejandra # Nix
-    pkgs.biome # JS
     pkgs.cue # Cue
     pkgs.eslint_d # JS
     pkgs.gofumpt # Go
     pkgs.golines # Go
     pkgs.jq # JSON
-    pkgs.markdownlint-cli2 # Markdown
     pkgs.nickel # Nickel
     pkgs.nixpkgs-fmt # Nix
     pkgs.rustfmt # Rust

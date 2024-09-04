@@ -50,7 +50,6 @@ local language_servers = {
 			telemetry = { enable = false },
 		},
 	},
-	marksman = {},
 	nickel_ls = {},
 	nil_ls = {
 		settings = {
@@ -105,17 +104,19 @@ treesitter_context.setup()
 -- Configure LSP linting, formatting, diagnostics, and code actions
 require("conform").setup({
 	formatters_by_ft = {
+		["_"] = { "prettier" },
 		cue = { "cuefmt" },
 		go = { "goimports", "gofmt" },
 		javascript = { "biome", "prettierd", "prettier", stop_after_first = true },
 		json = { "jq" },
 		just = { "just" },
 		lua = { "stylua" },
-		markdown = { "markdownlint-cli2" },
+		markdown = { "prettier" },
 		nickel = { "nickel" },
 		nix = { "alejandra" },
 		rust = { "rustfmt" },
 		terraform = { "terraform_fmt" },
+		typescript = { "biome", "prettierd", "prettier", stop_after_first = true },
 	},
 	format_on_save = {
 		timeout_ms = 500,
