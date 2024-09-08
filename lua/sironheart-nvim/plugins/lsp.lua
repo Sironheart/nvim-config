@@ -51,15 +51,7 @@ local language_servers = {
 		},
 	},
 	nickel_ls = {},
-	nil_ls = {
-		settings = {
-			["nil"] = {
-				formatting = {
-					command = { "nixpkgs-fmt" },
-				},
-			},
-		},
-	},
+	nil_ls = {},
 	terraformls = {},
 	tsserver = {},
 	yamlls = {},
