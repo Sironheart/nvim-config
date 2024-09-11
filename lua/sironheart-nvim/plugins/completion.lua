@@ -4,10 +4,19 @@ local lspkind = require("lspkind")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
-cmp.setup({
-	experimental = {
-		ghost_text = true,
+require("copilot").setup({
+	suggestions = {
+		keymap = {
+			accept = "<C-y>",
+			next = "<C-]>",
+			prev = "<C-[>",
+			dismiss = "<C-c>",
+		},
 	},
+	panel = { enabled = false },
+})
+
+cmp.setup({
 	formatting = {
 		fields = { "menu", "abbr", "kind" },
 		expandable_indicator = true,
@@ -15,6 +24,7 @@ cmp.setup({
 			mode = "symbol_text",
 			maxwidth = 100,
 			show_labelDetails = true,
+			symbol_map = { Copilot = "" },
 		}),
 	},
 	snippet = {
@@ -46,7 +56,7 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
-		{ name = "path", max_item_count = 3 },
+		{ name = "path", max_item_count = 5 },
 	},
 })
 luasnip.config.setup({})

@@ -57,6 +57,7 @@ in rec {
     # extras
     vimPlugins.auto-session
     vimPlugins.comment-nvim
+    vimPlugins.copilot-lua
     vimPlugins.gitsigns-nvim
     vimPlugins.mini-nvim
     vimPlugins.nui-nvim
